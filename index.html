@@ -5,40 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kripa Medical Centre</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    header { text-align: center; }
-    section { margin-bottom: 20px; }
-    .doctor { margin-bottom: 10px; }
+    body { font-family: Arial, sans-serif; margin: 0; }
+    header { background: #89baec; color: white; padding: 20px; text-align: center; }
+    header img { max-width: 150px; height: auto; display: block; margin: 0 auto 10px; }
+    header h1 { margin: 0; }
+    header .section-title { font-size: 20px; margin-top: 5px; }
+    nav { background: #003366; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slides img {
+      width: 100%;
+      flex-shrink: 0;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    section { padding: 20px; max-width: 800px; margin: auto; }
   </style>
 </head>
 <body>
   <header>
+    <img src="images/logo.png" alt="Kripa Medical Centre Logo">
     <h1>Kripa Medical Centre</h1>
-    <p>Trusted Dental Care since 2009</p>
+    <div class="section-title">Home</div>
   </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="doctors.html">Doctors</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="carousel">
+    <div class="slides">
+      <img src="images/reception.jpeg" alt="Slide 1">
+      <img src="images/chair4.jpeg" alt="Slide 2">
+      <img src="images/staff.png" alt="Slide 3">
+    </div>
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
 
   <section>
     <h2>About Us</h2>
-    <p>Located in Umm Al Quwain, we offer comprehensive dental care with experienced specialists.</p>
+    <p>Kripa Medical Centre has been serving the United Arab Emirates since 2009. Under the leadership of Director and Owner, 
+      Dr. Luna Lakshmi, we provide trusted dental care for you and your family.</p>
   </section>
 
-  <section>
-    <h2>Our Doctors</h2>
-    <div class="doctor">
-      <h3>Dr. Jacob Verghese</h3>
-      <p>Specialist Periodontist</p>
-    </div>
-    <div class="doctor">
-      <h3>Dr. Luna</h3>
-      <p>Oral Diagnostician</p>
-    </div>
-  </section>
+  <script>
+    const slides = document.querySelector('.slides');
+    const images = document.querySelectorAll('.slides img');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
 
-  <section>
-    <h2>Contact Us</h2>
-    <p>Flat No. 501, Al Masa 4 Building, King Faisal Street, Umm Al Quwain</p>
-    <p>Phone: +971 XX XXX XXXX</p>
-    <p>Email: info@yourclinic.com</p>
-  </section>
+    let index = 0;
+
+    function showSlide(i) {
+      index = (i + images.length) % images.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    next.addEventListener('click', () => showSlide(index + 1));
+    prev.addEventListener('click', () => showSlide(index - 1));
+
+    // Auto slide
+    setInterval(() => showSlide(index + 1), 4000);
+  </script>
 </body>
 </html>
